@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: ROMAN PANOV API
+  version: 1.0.0
+paths:
+
+
+  /start:
+    get:
+      parameters: 
+      - name: tts
+        in: query
+        required: true
+        description: time to sleep writing to db
+        schema:
+          type: number
+          example: 0.01
+      description: start imitation server, required param tts(time to sleep), it simulate changing on waking, and writes to db
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: OK
+  /stop:
+    get:
+      description: stops imitation server
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: OK
+  /all:
+    get:
+      summary: returns count and variables whith their values
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  variables_count:
+                    type: integer
+                    example: 1
+                  vars:
+                    type: object
+                    additionalProperties:
+                      type: number
+                    example: 
+                      a: 3.5
+                      cd: -11.2
+  /var:
+    get:
+      summary: Add or Del var
+      parameters:
+      - name: name
+        in: query
+        description: var name
+        required: true
+        schema:
+          type: string
+          example: a
+      - name: bv
+        in: query
+        description: begin value
+        schema:
+          type: number
+          example: 1.2
+          default: 1.0
+      - name: flag
+        in: query
+        description: add or del value
+        schema:
+          type: string
+          default: add
+          example: del
+      responses:
+        '200':
+          description: status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: OK
